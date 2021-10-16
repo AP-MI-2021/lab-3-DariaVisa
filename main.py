@@ -1,7 +1,6 @@
 def citire_date():
     """
-Notam numerele in lista
-    :param lst: lista
+Notam datele intr-o lista
     :return: lista
     """
     lst1 = []
@@ -21,7 +20,7 @@ Aflam daca numarul dat este prim
     if n < 2:
         return False
     else:
-        for i in range(2, n//2 +1):
+        for i in range(2, n//2 + 1):
             if n % i == 0:
                 return False
     return True
@@ -34,14 +33,14 @@ def test_is_prime():
 
 
 def get_longest_all_primes(lst):
+    """
+Determinam cea mai lunga subsecventa cu numere prime
+    :param lst: lista data de user
+    :return: lista cu numere prime
+    """
     listi = []
     listf = []
-    # for x in lst:
-    #     if is_prime(x):
-    #         listi.append(x)
     i = 0
-    #  0  1   2  3  4
-    # [1, 3, 5, 7, 8, 2,5]
     while i < len(lst):
         listi = []
         if is_prime(lst[i]):
@@ -52,17 +51,27 @@ def get_longest_all_primes(lst):
                     listi.append(lst[i])
                     i += 1
                 else:
-                    i+=1
+                    i += 1
                     break
             if len(listi) > len(listf):
                 listf = listi
-
         else:
             i += 1
     return listf
 
 
+def test_get_longest_all_primes():
+    assert get_longest_all_primes([1, 2, 3, 4, 5, 7, 11, 13, 17]) == [5, 7, 11, 13, 17]
+    assert get_longest_all_primes([1, 2, 3, 4, 5, 6, 7, 8, 9]) == [2, 3]
+    assert get_longest_all_primes([4, 5, 6, 8]) == [5]
+
+
 def get_number_of_divisors(n):
+    """
+Determinam numarul de divizori
+    :param n: un numar dat
+    :return: numarul divizorilor
+    """
     count = 2
     for i in range(2, n):
         if n % i == 0:
@@ -70,10 +79,18 @@ def get_number_of_divisors(n):
     return count
 
 
+def test_get_number_of_divisors():
+    assert get_number_of_divisors(4) == 3
+    assert get_number_of_divisors(5) == 2
+    assert get_number_of_divisors(6) == 4
+
+
 def get_longest_same_div_count(lst):
-
-    # [1,2,3, 4, 6, 25]
-
+    """
+Determinam cea mai lunga subsecventa cu numere care au acealasi numar de divizori
+    :param lst: lista data
+    :return: lista cu numere care au acealsi numar de divizori
+    """
     listi = []
     listf = []
     i = 0
@@ -92,11 +109,17 @@ def get_longest_same_div_count(lst):
     return listf
 
 
+def test_get_longest_same_div_count():
+    assert get_longest_same_div_count([2, 3, 4, 5, 8]) == [2, 3]
+    assert get_longest_same_div_count([12, 4, 13]) == [12]
+
+
 def has_primes_digits(n):
-
-    # 1234 => 4 = %10 ,  1234/10 => 123, 1234/100 =>12, 1234/10%10
-    # 1233 % 10 => 4,  1234 / 10 = 123   123/10 = 12 12/10 =1  1/10 =0
-
+    """
+Determinam daca numarul dat are toate cifrele prime
+    :param n: numarul dat
+    :return: True daca are toate cifrele prime, False daca nu
+    """
     while n != 0:
         if is_prime(n % 10):
             n = n // 10
@@ -105,8 +128,18 @@ def has_primes_digits(n):
     return True
 
 
+def test_has_prime_digits():
+    assert has_primes_digits(235) is True
+    assert has_primes_digits(692) is False
+    assert has_primes_digits(234) is False
+
+
 def get_longest_prime_digits(lst):
-    # [12, 1234, 125, 127, 123]
+    """
+Determinam cea mai lunga subsecventa cu numere care au toate cifrele prime
+    :param lst: lista data
+    :return: lista cu numerele cu toate cifrele prime
+    """
     listi = []
     listf = []
     i = 0
@@ -128,28 +161,42 @@ def get_longest_prime_digits(lst):
     return listf
 
 
+def test_get_longest_prime_digits():
+    assert get_longest_prime_digits([23, 25, 5, 56]) == [23, 25, 5]
+    assert get_longest_prime_digits([4, 42, 2, 234, 5, 52, 57]) == [5, 52, 57]
+
+
 def main():
     test_is_prime()
-    l = []
+    test_get_longest_all_primes()
+    test_get_number_of_divisors()
+    test_get_longest_same_div_count()
+    test_has_prime_digits()
+    test_get_longest_prime_digits()
+    lst = []
     while True:
         print("1. Citire date. ")
         print("2. Toate numerele sunt prime. ")
         print("3. Toate numerele au acelasi numar de divizori. ")
-        print("4. Toate numerele sunt fomrate din cifre prime. ")
+        print("4. Toate numerele sunt formate din cifre prime. ")
         print("x. Iesire")
         optiune = input("Alege optiunea: ")
         if optiune == "1":
-            l = citire_date()
+            lst = citire_date()
         elif optiune == "2":
-            print(get_longest_all_primes(l))
+            print("Cea mai lunga subsecventa cu toate numerele prime este: ")
+            print(get_longest_all_primes(lst))
         elif optiune == "3":
-            print(get_longest_same_div_count(l))
+            print("Cea mai lunga subsecventa care are numerele cu acelasi numar de divizori este: ")
+            print(get_longest_same_div_count(lst))
         elif optiune == "4":
-            print(get_longest_prime_digits(l))
+            print("Cea mai lunga subsecventa cu numere cu cifre prime este: ")
+            print(get_longest_prime_digits(lst))
         elif optiune == "x":
-                break
+            break
         else:
             print("Reincercati")
+
 
 if __name__ == "__main__":
 
