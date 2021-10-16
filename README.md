@@ -1,4 +1,4 @@
-# Laborator 3 - Săptămâna 3
+    # Laborator 3 - Săptămâna 3
 
 Instalați PyCharm sau alt editor.
 
